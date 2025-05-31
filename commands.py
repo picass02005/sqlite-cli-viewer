@@ -2,10 +2,10 @@ import sqlite3
 
 import pretty_print
 
+
 class Commands:
     def __init__(self, db: sqlite3.Connection):
         self.db = db
-
 
     def tables(self, input_str: str) -> None:
         if len(args := input_str.split(" ")) > 1:
@@ -22,17 +22,14 @@ class Commands:
         print(cursor.fetchall())
         print("TODO: pretty print")
 
-
     def commit(self) -> None:
         self.db.commit()
         print("Change wrote to database\n"
               "Note: if you're using safe mode, your changes will be copied into database when you close it")
 
-
     def rollback(self) -> None:
         self.db.rollback()
         print("Database changes rolled back")
-
 
     def process_command(self, input_str: str):
         match input_str.lower():
