@@ -2,8 +2,6 @@ import sqlite3
 
 import pretty_print
 
-UNSAFE_STATEMENTS = ["INSERT", "UPDATE", "REPLACE", "DELETE", "CREATE", "ALTER", "DROP"]
-
 class Commands:
     def __init__(self, db: sqlite3.Connection):
         self.db = db
