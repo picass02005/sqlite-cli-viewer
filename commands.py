@@ -25,14 +25,12 @@ class Commands:
 
     def commit(self) -> None:
         self.db.commit()
-        self.need_commit = False
         print("Change wrote to database\n"
               "Note: if you're using safe mode, your changes will be copied into database when you close it")
 
 
     def rollback(self) -> None:
         self.db.rollback()
-        self.need_commit = False
         print("Database changes rolled back")
 
 
