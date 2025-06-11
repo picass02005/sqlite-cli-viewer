@@ -20,7 +20,9 @@ def pretty_print_table(values: List[Tuple[Any]], col_name: Optional[List[str]] =
         return
 
     if col_name is not None:
-        assert len(col_name) == len(values[-1]), ValueError("There isn't the same number of cell name and values")
+        if len(col_name) != len(values[-1]):
+            warning("There isn't the same number of columns in name and values. Removing column name.")
+            col_name = None
 
     max_sizes = []
     values_str: List[List[str]] = [[str(j) for j in i] for i in values]
@@ -69,7 +71,7 @@ def pretty_print_table(values: List[Tuple[Any]], col_name: Optional[List[str]] =
 
     print(f"\u2514{'\u2534'.join(['\u2500' * (i + 2) for i in max_sizes])}\u2518"[:n])
 
-    print(f"Printed {len(values)} rows.")
+    print(f"Printed {len(values):_} rows ({len(values) * len(values[-1]):_} values).")
 
 
 def ajust_length(s: str, n: int, center: bool = False) -> str:
