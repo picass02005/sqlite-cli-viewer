@@ -69,6 +69,8 @@ def pretty_print_table(values: List[Tuple[Any]], col_name: Optional[List[str]] =
 
     print(f"\u2514{'\u2534'.join(['\u2500' * (i + 2) for i in max_sizes])}\u2518"[:n])
 
+    print(f"Printed {len(values)} rows.")
+
 
 def ajust_length(s: str, n: int, center: bool = False) -> str:
     if len(s) > n:
