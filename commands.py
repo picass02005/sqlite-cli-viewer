@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 import pretty_print
@@ -41,6 +42,9 @@ class Commands:
 
             case ".rollback":
                 self.rollback()
+
+            case ".clear" | ".c":
+                os.system('cls' if os.name == 'nt' else 'clear')
 
             case _:
                 try:
