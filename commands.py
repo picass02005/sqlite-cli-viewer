@@ -20,8 +20,7 @@ class Commands:
             (arg,)
         )
 
-        print(cursor.fetchall())
-        print("TODO: pretty print")
+        pretty_print.pretty_print_table(cursor.fetchall(), ["Table name"])
 
     def commit(self) -> None:
         self.db.commit()
