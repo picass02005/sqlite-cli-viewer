@@ -45,8 +45,32 @@ class Commands:
             case _:
                 try:
                     # Executing SQL command
-                    print(self.db.execute(input_str).fetchall())
+                    v = self.db.execute(input_str).fetchall()
+
+                    col_name = None
+
+                    if input_str.lower().startswith("select"):
+                        if (s := input_str.split(" "))[1] == "*":
+                            try:
+                                col_name = [i[1] for i in self.db.execute(f"PRAGMA table_info('{s[3]}')").fetchall()]
+
+                            except sqlite3.OperationalError:
+                                pass
+
+                        else:
+                            col_name = []
+                            s.pop(0)
+                            while s:
+                                if s[0].lower() == "from":
+                                    s = []
+
+                                else:
+                                    col_name.append(s.pop(0).split(",")[0])
+
+                    pretty_print.pretty_print_table(
+                        v,
+                        col_name
+                    )
 
                 except Exception as err:
                     pretty_print.error(f"{type(err)}: {err}")
-                print("TODO")
