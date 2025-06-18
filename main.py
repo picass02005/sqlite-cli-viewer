@@ -2,7 +2,7 @@ import argparse
 
 import db_management
 import pretty_print
-from commands import Commands
+from CommandsManager import CommandsManager
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -37,42 +37,9 @@ if __name__ == "__main__":
     else:
         db = db_management.safe_open(args.database)
 
-    cmd = Commands(db)
+    cmd = CommandsManager(db, args)
 
-    on = True
-
-    while on:
+    while True:  # Quit will stop this loop by raising an exit(0)
         input_str = input(">>> ").strip()
 
-        if input_str.lower() == ".quit" or input_str.lower() == ".q":
-            on = args.database != ":memory:"
-            commit: bool = False
-            while on:
-                match input("Would you like to save your changes? (y/n)\n>>> ").lower():
-                    case "yes" | "y":
-                        commit = True
-                        on = False
-
-                    case "no" | "n":
-                        on = False
-
-            if args.unsafe:
-                if commit:
-                    db.commit()
-
-                else:
-                    db.rollback()
-
-                db_management.unsafe_close(db)
-
-            else:
-                if commit:
-                    db_management.safe_close(db, args.database)
-
-                else:
-                    db.close()
-
-            pretty_print.info("Database closed")
-
-        else:
-            cmd.process_command(input_str)
+        cmd.process_command(input_str)
