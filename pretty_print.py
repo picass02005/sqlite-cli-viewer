@@ -51,25 +51,25 @@ def pretty_print_table(values: List[Tuple[Any]], col_name: Optional[List[str]] =
 
     max_sizes = [min(i, max_length) for i in max_sizes]
 
-    print(f"\u250C{'\u252C'.join(['\u2500' * (i + 2) for i in max_sizes])}\u2510"[:n])
+    print(("\u250C" + "\u252C".join(["\u2500" * (i + 2) for i in max_sizes]) + "\u2510")[:n])
 
     # ===== Prints headers if exist ===== #
     if col_name is not None:
-        head = ' \u2502 '.join(
+        head = " \u2502 ".join(
             [ajust_length(j, min(max_sizes[i], max_length), True) for i, j in enumerate(col_name)]
         )
 
         print(f"\u2502 {head} \u2502"[:n])
-        print(f"\u251C{'\u253C'.join(['\u2500' * (i + 2) for i in max_sizes])}\u2524"[:n])
+        print(("\u251C" + "\u253C".join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2524")[:n])
 
     for k in values_str:
-        values = ' \u2502 '.join(
+        values = " \u2502 ".join(
             [ajust_length(j, min(max_sizes[i], max_length), False) for i, j in enumerate(k)]
         )
 
         print(f"\u2502 {values} \u2502"[:n])
 
-    print(f"\u2514{'\u2534'.join(['\u2500' * (i + 2) for i in max_sizes])}\u2518"[:n])
+    print(("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")[:n])
 
     print(f"Printed {len(values):_} rows ({len(values) * len(values[-1]):_} values).")
 
