@@ -6,7 +6,7 @@ from CommandObjects import CommandObject, CommandConstant
 class Quit(CommandObject):
     aliases = ["quit", "q"]
     arguments = []
-    help_message = "Quit this interpreter. If opened in safe mode, will ask if you want to save"
+    help_message = "Quit this interpreter.\nIf opened in safe mode, will ask if you want to save"
 
     @staticmethod
     def callback(cmd_const: CommandConstant, input_str: str) -> None:

@@ -5,7 +5,7 @@ from CommandObjects import CommandObject, CommandConstant
 class Commit(CommandObject):
     aliases = ["commit"]
     arguments = []
-    help_message = "Commit unsaved changes into DB [ONLY WORK IN UNSAFE MODE]"
+    help_message = "Commit unsaved changes into DB\nTHIS COMMAND ONLY WORKS IN UNSAFE MODE"
 
     @staticmethod
     def callback(cmd_const: CommandConstant, input_str: str) -> None:

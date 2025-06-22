@@ -19,7 +19,8 @@ def pretty_print_table(
         col_name: Optional[List[str]] = None,
         max_length: int = 20,
         multiline: bool = False,
-        end_of_line: str = "\r\n"
+        end_of_line: str = "\r\n",
+        show_number_entries: bool = True
 ) -> None:
     if not values:
         print("No values to display")
@@ -87,11 +88,11 @@ def pretty_print_table(
 
             for l in range(line_nb):
                 values_line = [i.split("\n")[l] if l < len(i.split("\n")) else "" for i in values_str[k]]
-                values = " \u2502 ".join(
+                v = " \u2502 ".join(
                     [j.ljust(min(max_sizes[i], max_length), " ") for i, j in enumerate(values_line)]
                 )
 
-                print(f"\u2502 {values} \u2502")
+                print(f"\u2502 {v} \u2502")
 
             if k != len(values_str) - 1:
                 print("\u251C" + "\u253C".join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2524")
@@ -102,17 +103,18 @@ def pretty_print_table(
         eol = end_of_line.replace("\r", "\\r").replace("\n", "\\n")
 
         for k in values_str:
-            values = " \u2502 ".join(
+            v = " \u2502 ".join(
                 [ajust_length(
                     j.replace(end_of_line, eol), min(max_sizes[i], max_length), False
                 ) for i, j in enumerate(k)]
             )
 
-            print(f"\u2502 {values} \u2502"[:n])
+            print(f"\u2502 {v} \u2502"[:n])
 
         print(("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")[:n])
 
-    print(f"Printed {len(values):_} rows ({len(values) * len(values[-1]):_} values).")
+    if show_number_entries:
+        print(f"Printed {len(values):_} rows ({len(values) * len(values[-1]):_} values).")
 
 
 def ajust_length(s: str, n: int, center: bool = False) -> str:

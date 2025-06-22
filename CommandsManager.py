@@ -70,5 +70,4 @@ class CommandsManager:
             except Exception as err:
                 pretty_print.error(f"{type(err)}: {err}")
 
-# TODO: .help / .?
 # TODO: .multiline

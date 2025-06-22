@@ -5,7 +5,7 @@ from CommandObjects import CommandObject, CommandConstant
 class Tables(CommandObject):
     aliases = ["tables", "table"]
     arguments = ["?TABLE?"]
-    help_message = "List names of tables matching LIKE pattern TABLE"
+    help_message = "List names of tables matching LIKE pattern TABLE\nArgument TABLE is optional"
 
     @staticmethod
     def callback(cmd_const: CommandConstant, input_str: str) -> None:
