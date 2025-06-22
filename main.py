@@ -1,7 +1,6 @@
 import argparse
 
 import db_management
-import pretty_print
 from CommandsManager import CommandsManager
 
 if __name__ == "__main__":

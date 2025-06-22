@@ -1,6 +1,4 @@
-import argparse
 import os
-import sqlite3
 
 from CommandObjects import CommandObject, CommandConstant
 

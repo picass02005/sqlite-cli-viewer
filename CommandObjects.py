@@ -1,7 +1,8 @@
 import argparse
 import sqlite3
 from dataclasses import dataclass
-from typing import List, TYPE_CHECKING
+from typing import List
+
 
 @dataclass
 class CommandConstant:

@@ -1,5 +1,5 @@
 import os
-from typing import List, Iterable, Tuple, Any, Optional
+from typing import List, Tuple, Any, Optional
 
 
 def info(msg: str) -> None:

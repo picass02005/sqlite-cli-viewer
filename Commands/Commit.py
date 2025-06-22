@@ -1,6 +1,3 @@
-import argparse
-import sqlite3
-
 import pretty_print
 from CommandObjects import CommandObject, CommandConstant
 
