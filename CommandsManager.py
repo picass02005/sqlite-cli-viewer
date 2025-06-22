@@ -6,6 +6,7 @@ import pretty_print
 from CommandObjects import CommandObject, CommandConstant
 from Commands.Clear import Clear
 from Commands.Commit import Commit
+from Commands.Help import Help
 from Commands.Quit import Quit
 from Commands.Rollback import Rollback
 from Commands.Tables import Tables
@@ -13,7 +14,7 @@ from Commands.Tables import Tables
 
 class CommandsManager:
     COMMAND_PREFIX: str = "."
-    COMMAND_CLASSES: List[CommandObject] = [Clear, Commit, Quit, Rollback, Tables]
+    COMMAND_CLASSES: List[CommandObject] = [Clear, Commit, Quit, Rollback, Tables, Help]
 
     def __init__(self, db: sqlite3.Connection, cli_args: Namespace):
         self.db = db
@@ -70,3 +71,4 @@ class CommandsManager:
                 pretty_print.error(f"{type(err)}: {err}")
 
 # TODO: .help / .?
+# TODO: .multiline

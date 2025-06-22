@@ -14,7 +14,13 @@ def error(msg: str) -> None:
     print(f"\033[0;31mERROR: {msg}\033[0m")
 
 
-def pretty_print_table(values: List[Tuple[Any]], col_name: Optional[List[str]] = None, max_length: int = 20):
+def pretty_print_table(
+        values: List[Tuple[Any]],
+        col_name: Optional[List[str]] = None,
+        max_length: int = 20,
+        multiline: bool = False,
+        end_of_line: str = "\r\n"
+) -> None:
     if not values:
         print("No values to display")
         return
@@ -62,14 +68,49 @@ def pretty_print_table(values: List[Tuple[Any]], col_name: Optional[List[str]] =
         print(f"\u2502 {head} \u2502"[:n])
         print(("\u251C" + "\u253C".join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2524")[:n])
 
-    for k in values_str:
-        values = " \u2502 ".join(
-            [ajust_length(j, min(max_sizes[i], max_length), False) for i, j in enumerate(k)]
-        )
+    # ===== Prints values ===== #
 
-        print(f"\u2502 {values} \u2502"[:n])
+    if multiline:
+        for k in range(len(values_str)):
+            line_nb = 1
 
-    print(("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")[:n])
+            for i, j in enumerate(values_str[k]):
+                val = []
+                for l in j.split(end_of_line):
+                    n = min(max_sizes[i], max_length)
+                    val.extend([(l[m:m+n]) for m in range(0, len(l), n)])
+
+                values_str[k][i] = "\n".join(val)
+
+                if len(val) > line_nb:
+                    line_nb = len(val)
+
+            for l in range(line_nb):
+                values_line = [i.split("\n")[l] if l < len(i.split("\n")) else "" for i in values_str[k]]
+                values = " \u2502 ".join(
+                    [j.ljust(min(max_sizes[i], max_length), " ") for i, j in enumerate(values_line)]
+                )
+
+                print(f"\u2502 {values} \u2502")
+
+            if k != len(values_str) - 1:
+                print("\u251C" + "\u253C".join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2524")
+
+        print("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")
+
+    else:
+        eol = end_of_line.replace("\r", "\\r").replace("\n", "\\n")
+
+        for k in values_str:
+            values = " \u2502 ".join(
+                [ajust_length(
+                    j.replace(end_of_line, eol), min(max_sizes[i], max_length), False
+                ) for i, j in enumerate(k)]
+            )
+
+            print(f"\u2502 {values} \u2502"[:n])
+
+        print(("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")[:n])
 
     print(f"Printed {len(values):_} rows ({len(values) * len(values[-1]):_} values).")
 
