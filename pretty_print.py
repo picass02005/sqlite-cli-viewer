@@ -46,12 +46,12 @@ def pretty_print_table(
             if max_sizes[i] < len(j):
                 max_sizes[i] = len(j)
 
-    if sum(max_sizes) + 3*len(max_sizes) + 1 <= n:
+    if sum(max_sizes) + 3 * len(max_sizes) + 1 <= n:
         max_length = n
 
     else:
-        under = [i for i in max_sizes if i<=max_length]
-        act = sum(under) + 3*len(max_sizes) + 1
+        under = [i for i in max_sizes if i <= max_length]
+        act = sum(under) + 3 * len(max_sizes) + 1
         if act <= n:
             max_length = max(max_length, (n - act) // (len(max_sizes) - len(under)))
 
@@ -78,7 +78,7 @@ def pretty_print_table(
                 val = []
                 for l in j.split(end_of_line):
                     n = min(max_sizes[i], max_length)
-                    val.extend([(l[m:m+n]) for m in range(0, len(l), n)])
+                    val.extend([(l[m:m + n]) for m in range(0, len(l), n)])
 
                 values_str[k][i] = "\n".join(val)
 
@@ -117,7 +117,7 @@ def pretty_print_table(
 
 def ajust_length(s: str, n: int, center: bool = False) -> str:
     if len(s) > n:
-        return f"{s[:n-3]}..."
+        return f"{s[:n - 3]}..."
 
     elif center:
         return s.center(n, " ")
