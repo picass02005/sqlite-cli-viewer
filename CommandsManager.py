@@ -2,11 +2,13 @@ import sqlite3
 from argparse import Namespace
 from typing import List
 
+import global_var
 import pretty_print
 from CommandObjects import CommandObject, CommandConstant
 from Commands.Clear import Clear
 from Commands.Commit import Commit
 from Commands.Help import Help
+from Commands.Multilines import Multiline
 from Commands.Quit import Quit
 from Commands.Rollback import Rollback
 from Commands.Schema import Schema
@@ -16,7 +18,17 @@ from Commands.Tables import Tables
 
 class CommandsManager:
     COMMAND_PREFIX: str = "."
-    COMMAND_CLASSES: List[CommandObject] = [Clear, Commit, Quit, Rollback, Tables, Help, Schema, TableSchema]
+    COMMAND_CLASSES: List[CommandObject] = [
+        Clear,
+        Commit,
+        Help,
+        Multiline,
+        Quit,
+        Rollback,
+        Schema,
+        TableSchema,
+        Tables
+    ]
 
     def __init__(self, db: sqlite3.Connection, cli_args: Namespace):
         self.db = db
@@ -66,10 +78,9 @@ class CommandsManager:
 
                 pretty_print.pretty_print_table(
                     v,
-                    col_name
+                    col_name,
+                    multiline=global_var.multiline
                 )
 
             except Exception as err:
                 pretty_print.error(f"{type(err)}: {err}")
-
-# TODO: .multiline
