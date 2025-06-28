@@ -9,12 +9,14 @@ from Commands.Commit import Commit
 from Commands.Help import Help
 from Commands.Quit import Quit
 from Commands.Rollback import Rollback
+from Commands.Schema import Schema
+from Commands.TableSchema import TableSchema
 from Commands.Tables import Tables
 
 
 class CommandsManager:
     COMMAND_PREFIX: str = "."
-    COMMAND_CLASSES: List[CommandObject] = [Clear, Commit, Quit, Rollback, Tables, Help]
+    COMMAND_CLASSES: List[CommandObject] = [Clear, Commit, Quit, Rollback, Tables, Help, Schema, TableSchema]
 
     def __init__(self, db: sqlite3.Connection, cli_args: Namespace):
         self.db = db

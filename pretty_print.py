@@ -78,8 +78,8 @@ def pretty_print_table(
             for i, j in enumerate(values_str[k]):
                 val = []
                 for l in j.split(end_of_line):
-                    n = min(max_sizes[i], max_length)
-                    val.extend([(l[m:m + n]) for m in range(0, len(l), n)])
+                    p = min(max_sizes[i], max_length)
+                    val.extend([(l[m:m + p]) for m in range(0, len(l), p)])
 
                 values_str[k][i] = "\n".join(val)
 
@@ -97,8 +97,6 @@ def pretty_print_table(
             if k != len(values_str) - 1:
                 print("\u251C" + "\u253C".join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2524")
 
-        print("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")
-
     else:
         eol = end_of_line.replace("\r", "\\r").replace("\n", "\\n")
 
@@ -109,9 +107,9 @@ def pretty_print_table(
                 ) for i, j in enumerate(k)]
             )
 
-            print(f"\u2502 {v} \u2502"[:n])
+            print(f"\u2502 {v} \u2502")
 
-        print(("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518")[:n])
+    print(("\u2514" + '\u2534'.join(['\u2500' * (i + 2) for i in max_sizes]) + "\u2518"))
 
     if show_number_entries:
         print(f"Printed {len(values):_} rows ({len(values) * len(values[-1]):_} values).")
